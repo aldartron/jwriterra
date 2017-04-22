@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Writerra | Вход</title>
+        <h:outputScript library="js" name="jquery-3.2.0.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+        <h:outputStylesheet library="css" name="master.css" />
+    </h:head>
+
+    <body>
+
+    <ui:insert name="header">
+        <ui:include src="/templates/header.xhtml" />
+    </ui:insert>
+
+    <div class="login-face">
+        <div class="panel panel-default col-md-3 col-md-offset-2">
+            <div class="page-header">
+                <h2>Войдите под своей учетной записью</h2>
+            </div>
+            <h:form role="form" id="login_form">
+                <div class="form-group">
+                    <label for="login">Логин</label>
+                    <h:inputText a:placeholder="Введите имя пользователя..." id="login" name="login" styleClass="form-control" value="#{author.login}" required="true" requiredMessage="Поле не может быть пустым" />
+                </div>
+                <div class="form-group">
+                    <label for="pass">Пароль</label>
+                    <h:inputSecret a:placeholder="Введите пароль..." id="pass" name="pass" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым" />
+                </div>
+                <div class="btn-panel">
+                    <h:commandButton action="#{author.login}" value="Вход" styleClass="btn btn-success" type="submit"/>
+                </div>
+                <div>
+                    <h:message id="loginError" for="login_form" styleClass="error"/>
+                </div>
+            </h:form>
+
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <div class="page-header">
+                <h2>Или создайте новую</h2>
+            </div>
+            <!-- ЛОГИН -->
+            <h:form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="reglog">Логин:</label>
+                    <div class="col-sm-8">
+                        <h:inputText a:placeholder="Придумайте имя пользователя" a:max="20" a:min="6" id="reglog" name="reglog" styleClass="form-control" value="#{author.login}" required="true" requiredMessage="Поле не может быть пустым">
+
+                        </h:inputText>
+                        <!--<input type="text" class="form-control" name="reglog" id="rglog" placeholder="Придумайте логин"></input>-->
+                    </div>
+                    <div class="col-sm-2"> * </div>
+                </div>
+                <!-- ПАРОЛЬ -->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pwd">Пароль:</label>
+                    <div class="col-sm-8">
+                        <h:inputText a:type="password" a:placeholder="Придумайте надежный пароль" a:max="20" a:min="6" id="pwd" name="regpwd" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым">
+
+                        </h:inputText>
+                        <!--<input type="password" class="form-control" name="regpwd" id="pwd" placeholder="Придумайте пароль"></input>-->
+                    </div>
+                    <div class="col-sm-2"> * </div>
+                </div>
+                <hr></hr>
+                <!-- ИМЯ -->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="regname">Имя:</label>
+                    <div class="col-sm-8">
+                        <h:inputText a:placeholder="Настоящее или псевдоним" a:max="20" a:min="2" id="regname" name="regname" styleClass="form-control" value="#{author.firstname}" required="true" requiredMessage="Поле не может быть пустым">
+
+                        </h:inputText>
+                        <!--<input type="text" class="form-control" name="regname" id="regname" placeholder="Настоящее или имя псевдонима"></input>-->
+                    </div>
+                    <div class="col-sm-2"> * </div>
+                </div>
+                <!-- ФАМИЛИЯ -->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="regsurename">Фамилия:</label>
+                    <div class="col-sm-8">
+                        <h:inputText a:placeholder="Настоящая или псевдоним" a:max="20" a:min="2" id="regsurename" name="regsurename" styleClass="form-control" value="#{author.lastname}" required="true" requiredMessage="Поле не может быть пустым">
+
+                        </h:inputText>
+                        <!--<input type="text" class="form-control" name="regsurename" id="regsurename" placeholder="Настоящая или фамилия псевдонима"></input>-->
+                    </div>
+                    <div class="col-sm-2"> * </div>
+                </div>
+                <!-- ИНФО -->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="reginfo">О себе</label>
+                    <div class="col-sm-10">
+                        <h:inputTextarea rows="7" styleClass="form-control" name="reginfo" id="reginfo" a:placeholder="Расскажите пару слов о себе" value="#{author.info}">
+
+                        </h:inputTextarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <h:commandButton action="#{loginController.register(author)}" value="Регистрация" styleClass="btn btn-success" type="submit"/>
+                    </div>
+                </div>
+                <div class="alert alert-danger" style="display: none" role="alert" id="badInput">
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+    <ui:insert name="footer">
+        <ui:include src="/templates/footer.xhtml" />
+    </ui:insert>
+
+    <h:outputScript library="js" name="abracadabra.js"></h:outputScript>
+
+    </body>
+
+</html>

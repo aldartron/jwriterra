@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Cuprum|Open+Sans');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar {
+  font-size: 1.2em;
+}
+.navbar-nav>li>a {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.navbar-header a {
+  line-height: 100%;
+}
+
+.navbar-brand {
+  font-family: 'Cuprum', sans-serif;
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-right: 36px;
+}
+
+div.face {
+  background-image: url("#{resource['images/main-bg.jpg']}");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center;
+  background-attachment: fixed;
+  height: 1000px;
+  margin-top: 36px;
+  padding-top: 32px;
+  padding-left: auto;
+}
+
+div.jumbotron {
+  background: none;
+  text-align: center;
+  width: 82%;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  margin-top: 36px;
+  margin-bottom: 36px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.cardboard {
+  width: 82%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.banner {
+  background-color: rgba(255,255,255,0.8);
+}
+div.card {
+  width: 32%;
+  padding: 24px;
+  color: #111;
+}
+hr {
+  border: none;
+  color: #CCC;
+  background-color: #CCC;
+  height: 1px;
+}
+
+div.banner h1 {
+  margin: 36px;
+  font-size: 72px;
+  font-weight: bolder;
+}
+div.banner a {
+  margin-top: 32px;
+}
+
+div.login-face {
+  background-image: url("#{resource['images/texture1.jpg']}");
+  height: 900px;
+  background-repeat: repeat;
+  padding-top: 110px;
+}
+div.login-face > div {
+  background-color: rgba(255,255,255,0.64);
+  padding: 20px;
+}
+
+div.btn-panel {
+  width: 100%;
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+div.btn-panel > button {
+  width: 100px;
+}
+
+.page-header {
+  border-bottom: 1px solid #CCC;
+}
+
+footer {
+  padding-top: 16px;
+  padding-bottom: 12px;
+  border-top: 1px solid #CCC;
+}
