@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Writerra</title>
+        <h:outputScript library="js" name="jquery-3.2.0.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+        <h:outputStylesheet library="css" name="master.css" />
+    </h:head>
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{profile.login}" required="true" />
+        <f:viewAction action="#{profile.onload()}" />
+    </f:metadata>
+
+    <h:body>
+
+        <ui:insert name="header">
+            <ui:include src="/templates/header.xhtml" />
+        </ui:insert>
+
+        <div class="main">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-2 avatar">
+                    <img src="#{resource['images/av.jpg']}" alt=""/>
+                </div>
+                <div class="col-md-5">
+                    <div class="page-header">
+                        <h1>#{profile.getName()} #{profile.getSurename()}<br/>
+                            <small> #{profile.getLogin()} </small>
+                        </h1>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            <em>
+                                #{profile.getInfo()}
+                            </em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row board">
+                <div class="col-md-3 col-md-offset-2">
+                    <h4>Заргестрирован: <strong>#{profile.getRegdate()}</strong></h4>
+                </div>
+                <div class="col-md-2">
+                    <h4>Опубликовал книг: <strong>25</strong> </h4>
+                </div>
+                <div class="col-md-3">
+                    <h4>Объмом: <strong>152541</strong> символов </h4>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <h3>Последние обновления:</h3>
+                <div class="col-md-10 col-md-offset-1">
+
+                    <!--TODO: manage the book links-->
+
+                    <ui:repeat value="#{bookListController.getLastEditedBooks(profile.getLogin(), 4)}" var="b">
+
+                        <div class="col-md-3 col-sm-6 bookboard">
+                            <div class="bookcard">
+                                <a href="#">
+                                <img src="#{resource['images/cover1.jpg']}" alt="alttitle"/>
+                                <h4>
+                                    #{b.getTitle()}
+                                </h4>
+                                </a>
+                                <!--<hr/>-->
+                                <!--<p>#{profile.getName()} #{profile.getSurename()}</p>-->
+                                <small><em>#{b.getGenre()}</em></small>
+                            </div>
+
+                        </div>
+
+                    </ui:repeat>
+
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <h3>Все книги автора:</h3>
+            </div>
+        </div>
+
+
+        <ui:insert name="footer">
+            <ui:include src="/templates/footer.xhtml" />
+        </ui:insert>
+
+    </h:body>
+
+
+</html>

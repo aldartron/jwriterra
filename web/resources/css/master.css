@@ -89,6 +89,8 @@ div.login-face > div {
   padding: 20px;
 }
 
+
+
 div.btn-panel {
   width: 100%;
   text-align: center;
@@ -107,4 +109,66 @@ footer {
   padding-top: 16px;
   padding-bottom: 12px;
   border-top: 1px solid #CCC;
+}
+
+/*Profil */
+
+div.main {
+  padding: 32px;
+  padding-top: 87px;
+  background-image: url("#{resource['images/texture1.jpg']}");
+  min-height: 200px;
+}
+div.avatar {
+  margin-top: 1.5%;
+  text-align: center;
+}
+div.avatar img {
+  border: 3px double darkslategray;
+  float: none;
+  width: 200px;
+  height: 200px;
+  vertical-align: middle;
+}
+
+div.board {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 36px;
+  margin-top: 36px;
+}
+
+div.bookboard {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+div.bookboard a {
+    text-decoration: none;
+    color: #333;
+}
+div.bookboard a:hover {
+    text-decoration: none;
+    color: steelblue;
+}
+
+div.bookcard {
+    position:relative;
+    margin-left:auto;
+    margin-right: auto;
+    width: 220px;
+    padding-bottom: 16px;
+    background-color: rgba(255,255,255,0.5);
+    box-shadow: 2px 1px 7px darkslategray;
+}
+div.bookcard img {
+  margin: auto;
+}
+div.bookcard h4 {
+    padding-top: 12px;
+    font-weight: bold;
 }

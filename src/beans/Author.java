@@ -82,6 +82,8 @@ public class Author {
 
             ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).login(login, keyword);
 
+
+
             return "index";
 
         } catch (ServletException ex) {
