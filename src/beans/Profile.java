@@ -3,13 +3,12 @@ package beans;
 import db.Database;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Aldartron on 23.04.2017.
@@ -20,12 +19,14 @@ import java.util.logging.Logger;
 public class Profile implements Serializable{
 
     private int id;
+    @ManagedProperty(value = "#{param.id}")
     private String login;
     private String name;
     private String surename;
     private String info;
     private Date regdate;
     private byte[] avatar;
+    private int bookCount;
 
     private ArrayList<Book> bookList;
 
@@ -36,47 +37,43 @@ public class Profile implements Serializable{
     }
 
     private void fillProfile() {
-        Connection conn = Database.getConnection();
-        Statement stmt = null;
-        ResultSet rs = null;
 
-        if (conn != null)
-            try {
+        try(
+                Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement();
+                Statement stmt1 = conn.createStatement();
+            )
+        {
 
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM Authors WHERE Login = \"" + login + "\"");
-
+            try(
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM Authors WHERE Login = \"" + login + "\"");
+                    ResultSet rs1 =stmt1.executeQuery("SELECT COUNT(ID_Book) AS \"Count\" FROM books WHERE ID_Author = " + id)
+                )
+            {
                 while (rs.next()) {
+                    this.id = rs.getInt("ID_Author");
                     this.name = rs.getString("FirstName");
                     this.surename = rs.getString("LastName");
                     this.login = rs.getString("Login");
                     this.info = rs.getString("Info");
                     this.regdate = rs.getDate("RegDate");
                     this.avatar = null; //
-
                     // TODO: manage avatars
                 }
 
-                System.out.println("test" + login);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            } finally {
-                try {
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                while (rs1.next()) {
+                    this.bookCount = rs1.getInt("Count");
                 }
             }
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public int getBookCount() {
+        return bookCount;
     }
 
     public int getId() {

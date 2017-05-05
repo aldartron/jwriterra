@@ -19,7 +19,6 @@ public class LoginController {
     public String register(Author author) {
 
         author.add();
-
         author.login();
 
         return "main";

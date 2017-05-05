@@ -51,7 +51,7 @@
                     <h4>Заргестрирован: <strong>#{profile.getRegdate()}</strong></h4>
                 </div>
                 <div class="col-md-2">
-                    <h4>Опубликовал книг: <strong>25</strong> </h4>
+                    <h4>Опубликовал книг: <strong>#{profile.getBookCount()}</strong> </h4>
                 </div>
                 <div class="col-md-3">
                     <h4>Объмом: <strong>152541</strong> символов </h4>
@@ -59,12 +59,12 @@
             </div>
             <hr/>
             <div class="row">
-                <h3>Последние обновления:</h3>
+                <h3>Книги автора:</h3>
                 <div class="col-md-10 col-md-offset-1">
 
                     <!--TODO: manage the book links-->
 
-                    <ui:repeat value="#{bookListController.getLastEditedBooks(profile.getLogin(), 4)}" var="b">
+                    <ui:repeat value="#{bookListController.getBookList(profile)}" var="b">
 
                         <div class="col-md-3 col-sm-6 bookboard">
                             <div class="bookcard">
@@ -80,17 +80,13 @@
                             </div>
 
                         </div>
-
                     </ui:repeat>
 
                 </div>
             </div>
-            <hr/>
-            <div class="row">
-                <h3>Все книги автора:</h3>
-            </div>
-        </div>
 
+
+        </div>
 
         <ui:insert name="footer">
             <ui:include src="/templates/footer.xhtml" />
