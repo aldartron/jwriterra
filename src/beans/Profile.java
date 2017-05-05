@@ -41,13 +41,13 @@ public class Profile implements Serializable{
         try(
                 Connection conn = Database.getConnection();
                 Statement stmt = conn.createStatement();
-                Statement stmt1 = conn.createStatement();
             )
         {
-
             try(
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM Authors WHERE Login = \"" + login + "\"");
-                    ResultSet rs1 =stmt1.executeQuery("SELECT COUNT(ID_Book) AS \"Count\" FROM books WHERE ID_Author = " + id)
+                    ResultSet rs = stmt.executeQuery(
+                            "SELECT *, COUNT(ID_Book) AS \"Count\" " +
+                            "FROM authors LEFT JOIN Books ON books.ID_Author = authors.ID_Author " +
+                                    "WHERE Login = \"" + login + "\"")
                 )
             {
                 while (rs.next()) {
@@ -58,14 +58,10 @@ public class Profile implements Serializable{
                     this.info = rs.getString("Info");
                     this.regdate = rs.getDate("RegDate");
                     this.avatar = null; //
+                    this.bookCount = rs.getInt("Count");
                     // TODO: manage avatars
                 }
-
-                while (rs1.next()) {
-                    this.bookCount = rs1.getInt("Count");
-                }
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
