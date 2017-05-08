@@ -35,6 +35,10 @@
             <from-outcome>main</from-outcome>
             <to-view-id>/pages/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>authors</from-outcome>
+            <to-view-id>/pages/authors.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
   
 </faces-config>

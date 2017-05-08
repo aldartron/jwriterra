@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:head>
         <title>Writerra</title>
@@ -15,5 +16,56 @@
         <h:outputStylesheet library="css" name="master.css" />
     </h:head>
 
+    <h:body>
+
+        <ui:insert name="header">
+            <ui:include src="/templates/header.xhtml" />
+        </ui:insert>
+
+        <div class="main">
+            <div class="panel panel-default col-md-8 col-md-offset-2">
+                <div class="panel-body">
+                    <h:form id="search_form">
+                        <div class="input-group">
+                            <h:inputText styleClass="form-control" maxlength="50" a:placeholder="Найти автора" value="#{profileListController.searchString}"/>
+                            <span class="input-group-btn">
+                                <h:commandButton action="#{profileListController.fillProfileListBySearch()}" styleClass="btn btn-default" value="Поиск">
+                                </h:commandButton>
+                            </span>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-12 col-md-offset-0">
+                    <h4><h:message for="search_form" id="searchMessage"/><small> Найдено: #{profileListController.profileList.size()}</small></h4>
+                    <hr/>
+                    <ui:repeat value="#{profileListController.getProfileList()}" var="p">
+
+                        <div class="col-md-6 col-sm-6 authorboard">
+                            <div class="panel panel-default authorcard">
+                                <img src="#{resource['images/av.jpg']}" alt="avatar"/>
+                                <div>
+                                    <h4>#{p.getName()} #{p.getSurename()}</h4>
+                                    <p class="text-muted">#{p.getLogin()}</p>
+                                    <hr/>
+                                    <p>Книг: #{p.getBookCount()}</p>
+                                    <p>Зарегистрирован: #{p.getRegdate()}</p>
+                                    <p>Любимый жанр: #{p.getFavGenre()}</p>
+                                </div>
+                        </div>
+                    </div>
+
+                </ui:repeat>
+
+            </div>
+        </div>
+    </div>
+
+    <ui:insert name="footer">
+        <ui:include src="/templates/footer.xhtml" />
+    </ui:insert>
+
+</h:body>
 
 </html>

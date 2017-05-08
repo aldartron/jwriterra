@@ -10,9 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +28,7 @@ public class Author {
     private Date regdate;
     private byte[] cover;
     private String info;
+    private int bookCount;
 
     public void add() {
 
@@ -77,13 +76,9 @@ public class Author {
     }
 
     public String login() {
-
         try {
 
             ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).login(login, keyword);
-
-
-
             return "index";
 
         } catch (ServletException ex) {
@@ -93,9 +88,7 @@ public class Author {
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             context.addMessage("login_form", message);
         }
-
         return "login";
-
     }
 
     public long getId() {
@@ -160,6 +153,14 @@ public class Author {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public int getBookCount() {
+        return bookCount;
+    }
+
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
     }
 
     @Override

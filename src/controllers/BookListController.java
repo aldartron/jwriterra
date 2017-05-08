@@ -48,7 +48,7 @@ public class BookListController {
 
         try (
                 Connection conn = Database.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
+                PreparedStatement ps = conn.prepareStatement(sql)
         ) {
             try (ResultSet rs = ps.executeQuery()) {
 

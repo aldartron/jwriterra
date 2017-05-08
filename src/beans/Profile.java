@@ -27,6 +27,7 @@ public class Profile implements Serializable{
     private Date regdate;
     private byte[] avatar;
     private int bookCount;
+    private String favGenre;
 
     private ArrayList<Book> bookList;
 
@@ -135,5 +136,40 @@ public class Profile implements Serializable{
 
     public void setBookList(ArrayList<Book> bookList) {
         this.bookList = bookList;
+    }
+
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
+    }
+
+    public String getFavGenre() {
+
+        String result = "Нет";
+
+        String sql = "SELECT genres.Name, COUNT(books.ID_Genre) AS \"Count\" FROM books \n" +
+                "LEFT JOIN genres ON books.ID_Genre = genres.ID_Genre\n" +
+                "WHERE books.ID_Author = " + this.id + "\n" +
+                "GROUP BY books.ID_Genre\n" +
+                "ORDER BY \"Count\" DESC\n" +
+                "LIMIT 1\n";
+
+        try (
+                Connection conn = Database.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ){
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+                    result = rs.getString("Name");
+                }
+
+            } catch (Exception ex) {ex.printStackTrace();}
+        } catch (Exception ex) {ex.printStackTrace();}
+
+        return result;
+    }
+
+    public void setFavGenre(String favGenre) {
+        this.favGenre = favGenre;
     }
 }
