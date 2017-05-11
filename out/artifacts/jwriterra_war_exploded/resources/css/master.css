@@ -145,7 +145,7 @@ div.bookboard {
     margin-top: 16px;
     margin-bottom: 36px;
     text-align: center;
-    height: 385px;
+    height: 400px;
 }
 
 div.bookboard a {
@@ -173,6 +173,7 @@ div.bookcard {
 }
 div.bookcard img {
     margin: auto;
+
 }
 div.bookcard h4 {
     padding-top: 12px;
@@ -204,4 +205,16 @@ div.authorcard div {
 div.authorcard hr {
   margin-top: 8px;
     margin-bottom: 8px;
+}
+div.authorcard div a:hover {
+  text-decoration: none;
+}
+
+.side-menu {
+  /*width: 200px;*/
+  padding-top: 16px;
+}
+
+div.bookpanel {
+  height: 450px;
 }

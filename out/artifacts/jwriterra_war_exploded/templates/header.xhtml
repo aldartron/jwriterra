@@ -24,6 +24,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <h:form>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Жанры <span class="caret"></span></a>
@@ -32,7 +33,7 @@
                                     <ui:repeat value="#{genreController.genreList}" var="g">
 
                                     <li>
-                                        <h:link value="#{g.name}" outcome="index.xhtml"/>
+                                        <h:commandLink action="#{bookListController.fillBooksByGenre(g.name)}">#{g.name}</h:commandLink>
                                     </li>
 
                                     </ui:repeat>
@@ -40,8 +41,10 @@
                                 </ul>
                             </li>
                             <li><h:link outcome="authors">Авторы</h:link></li>
-                            <li><a href="#">Книги</a></li>
+                            <li><h:link outcome="books" value="Книги"/></li>
                         </ul>
+                        </h:form>
+
                         <h:form>
                         <ul class="nav navbar-nav navbar-right kostil-nav">
                             <ui:fragment rendered="#{empty request.remoteUser}">

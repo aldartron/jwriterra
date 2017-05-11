@@ -42,7 +42,7 @@ public class ProfileListController {
         if (searchString.trim().equals("") || searchString == null) {
             searchString = null;
             fillProfilesAll();
-            return "books";
+            return "authors";
         }
         searchString = searchString.trim();
         String sql =
@@ -61,7 +61,7 @@ public class ProfileListController {
 
         searchString = null;
 
-        return "books";
+        return "authors";
     }
 
     private void fillProfilesBySQL(String sql) {
@@ -72,10 +72,7 @@ public class ProfileListController {
                 Connection conn = Database.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)
         ) {
-            try (
-                    ResultSet rs = ps.executeQuery()
-            ) {
-
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Profile p = new Profile();
                     p.setLogin(rs.getString("Login"));

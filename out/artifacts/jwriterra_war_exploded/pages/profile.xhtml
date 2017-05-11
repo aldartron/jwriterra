@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Writerra</title>
+        <title>Профиль #{profile.login}</title>
         <h:outputScript library="js" name="jquery-3.2.0.min.js" />
         <h:outputScript library="js" name="bootstrap.min.js" />
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
@@ -32,14 +32,14 @@
                 </div>
                 <div class="col-md-5">
                     <div class="page-header">
-                        <h1>#{profile.getName()} #{profile.getSurename()}<br/>
-                            <small> #{profile.getLogin()} </small>
+                        <h1>#{profile.name} #{profile.surename}<br/>
+                            <small> #{profile.login} </small>
                         </h1>
                     </div>
                     <div class="col-md-8">
                         <p>
                             <em>
-                                #{profile.getInfo()}
+                                #{profile.info}
                             </em>
                         </p>
                     </div>
@@ -48,10 +48,10 @@
             <hr/>
             <div class="row board">
                 <div class="col-md-3 col-md-offset-2">
-                    <h4>Заргестрирован: <strong>#{profile.getRegdate()}</strong></h4>
+                    <h4>Заргестрирован: <strong>#{profile.regdate}</strong></h4>
                 </div>
                 <div class="col-md-2">
-                    <h4>Опубликовано книг: <strong>#{profile.getBookCount()}</strong> </h4>
+                    <h4>Опубликовано книг: <strong>#{profile.bookCount}</strong> </h4>
                 </div>
                 <div class="col-md-3">
                     <h4>Объмом: <strong>152541</strong> символов </h4>
@@ -64,14 +64,14 @@
 
                     <!--TODO: manage the book links-->
 
-                    <ui:repeat value="#{bookListController.getBookList(profile)}" var="b">
+                    <ui:repeat value="#{bookListController.getBooksByProfile(profile)}" var="b">
 
                         <div class="col-md-3 col-sm-6 bookboard">
                             <div class="bookcard">
                                 <a href="#">
                                 <img src="#{resource['images/cover1.jpg']}" alt="alttitle"/>
                                 <h4>
-                                    #{b.getTitle()}
+                                    #{b.title}
                                 </h4>
                                 </a>
                                 <!--<hr/>-->
