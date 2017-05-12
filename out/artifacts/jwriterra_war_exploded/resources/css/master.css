@@ -218,3 +218,31 @@ div.authorcard div a:hover {
 div.bookpanel {
   height: 450px;
 }
+
+div.chapterslist {
+  padding-right: 0px;
+}
+
+div.main{
+  min-height: 90vh;
+  margin: 0px;
+}
+
+div.sidebar {
+  min-height: 75vh;
+}
+
+div.reader {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+div.reader-list {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  min-height: 35vh;
+  padding: 36px 72px;
+  font-size: 1.35em;
+  line-height: 27px;
+}
+

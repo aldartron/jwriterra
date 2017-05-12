@@ -68,12 +68,13 @@
 
                         <div class="col-md-3 col-sm-6 bookboard">
                             <div class="bookcard">
-                                <a href="#">
-                                <img src="#{resource['images/cover1.jpg']}" alt="alttitle"/>
-                                <h4>
-                                    #{b.title}
-                                </h4>
-                                </a>
+                                <h:link outcome="book">
+                                    <img src="#{resource['images/cover1.jpg']}" alt="alttitle"/>
+                                    <h4>
+                                        #{b.getTitle()}
+                                    </h4>
+                                    <f:param name="id" value="#{b.id}"/>
+                                </h:link>
                                 <!--<hr/>-->
                                 <!--<p>#{profile.getName()} #{profile.getSurename()}</p>-->
                                 <small><em>#{b.getGenre()}</em></small>
