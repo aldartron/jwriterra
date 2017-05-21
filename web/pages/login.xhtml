@@ -27,17 +27,19 @@
             <div class="page-header">
                 <h2>Войдите под своей учетной записью</h2>
             </div>
-            <h:form role="form" id="login_form" onsubmit="return checkLog(this)">
+            <h:form role="form" id="login_form" onsubmit="return checkLog()">
                 <div class="form-group">
                     <label for="login">Логин</label>
-                    <h:inputText a:placeholder="Введите имя пользователя..." id="login" name="login" styleClass="form-control" value="#{author.login}" required="true" requiredMessage="Поле не может быть пустым" />
+                    <h:inputText a:placeholder="Введите имя пользователя..." id="login" maxlength="20"  name="login" styleClass="form-control" value="#{author.login}" required="true" requiredMessage="Поле не может быть пустым"/>
                 </div>
                 <div class="form-group">
                     <label for="pass">Пароль</label>
-                    <h:inputSecret a:placeholder="Введите пароль..." id="pass" name="pass" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым" />
+                    <h:inputSecret a:placeholder="Введите пароль..." maxlength="20" id="pass" name="pass" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым" />
                 </div>
                 <div class="btn-panel">
                     <h:commandButton action="#{author.login}" value="Вход" styleClass="btn btn-success" type="submit" />
+                </div>
+                <div class="alert alert-danger" style="display: none" role="alert" id="badLogin">
                 </div>
                 <div>
                     <h:message id="loginError" for="login_form" styleClass="error"/>
@@ -50,57 +52,44 @@
                 <h2>Или создайте новую</h2>
             </div>
             <!-- ЛОГИН -->
-            <h:form class="form-horizontal">
+            <h:form class="form-horizontal" id="reg_form" onsubmit="return checkReg()">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="reglog">Логин:</label>
                     <div class="col-sm-8">
-                        <h:inputText a:placeholder="Придумайте имя пользователя" a:max="20" a:min="6" id="reglog" name="reglog" styleClass="form-control" value="#{author.login}" required="true" requiredMessage="Поле не может быть пустым">
-
-                        </h:inputText>
-                        <!--<input type="text" class="form-control" name="reglog" id="rglog" placeholder="Придумайте логин"></input>-->
+                        <h:inputText a:placeholder="Придумайте имя пользователя" maxlength="20" id="reglog" name="reglog" styleClass="form-control" value="#{author.login}" />
                     </div>
-                    <div class="col-sm-2"> * </div>
+                    <div class="col-sm-2 req"> * </div>
                 </div>
                 <!-- ПАРОЛЬ -->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="pwd">Пароль:</label>
                     <div class="col-sm-8">
-                        <h:inputText a:type="password" a:placeholder="Придумайте надежный пароль" a:max="20" a:min="6" id="pwd" name="regpwd" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым">
-
-                        </h:inputText>
+                        <h:inputSecret a:placeholder="Придумайте надежный пароль" maxlength="20" id="pwd" name="regpwd" styleClass="form-control" value="#{author.keyword}"/>
                     </div>
-                    <div class="col-sm-2"> * </div>
+                    <div class="col-sm-2 req"> * </div>
                 </div>
                 <hr></hr>
                 <!-- ИМЯ -->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="regname">Имя:</label>
                     <div class="col-sm-8">
-                        <h:inputText a:placeholder="Настоящее или псевдоним" a:max="20" a:min="2" id="regname" name="regname" styleClass="form-control" value="#{author.firstname}" required="true" requiredMessage="Поле не может быть пустым">
-
-                        </h:inputText>
-                        <!--<input type="text" class="form-control" name="regname" id="regname" placeholder="Настоящее или имя псевдонима"></input>-->
+                        <h:inputText a:placeholder="Настоящее или псевдоним" maxlength="20" id="regname" name="regname" styleClass="form-control" value="#{author.firstname}"/>
                     </div>
-                    <div class="col-sm-2"> * </div>
+                    <div class="col-sm-2 req"> * </div>
                 </div>
                 <!-- ФАМИЛИЯ -->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="regsurename">Фамилия:</label>
                     <div class="col-sm-8">
-                        <h:inputText a:placeholder="Настоящая или псевдоним" a:max="20" a:min="2" id="regsurename" name="regsurename" styleClass="form-control" value="#{author.lastname}" required="true" requiredMessage="Поле не может быть пустым">
-
-                        </h:inputText>
-                        <!--<input type="text" class="form-control" name="regsurename" id="regsurename" placeholder="Настоящая или фамилия псевдонима"></input>-->
+                        <h:inputText a:placeholder="Настоящая или псевдоним" a:max="20" a:min="2" id="regsurename" name="regsurename" styleClass="form-control" value="#{author.lastname}"/>
                     </div>
-                    <div class="col-sm-2"> * </div>
+                    <div class="col-sm-2 req"> * </div>
                 </div>
                 <!-- ИНФО -->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="reginfo">О себе</label>
                     <div class="col-sm-10">
-                        <h:inputTextarea rows="7" styleClass="form-control" name="reginfo" id="reginfo" a:placeholder="Расскажите пару слов о себе" value="#{author.info}">
-
-                        </h:inputTextarea>
+                        <h:inputTextarea rows="7" styleClass="form-control" name="reginfo" id="reginfo" a:placeholder="Расскажите пару слов о себе" value="#{author.info}"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -108,7 +97,7 @@
                         <h:commandButton action="#{loginController.register(author)}" value="Регистрация" styleClass="btn btn-success" type="submit"/>
                     </div>
                 </div>
-                <div class="alert alert-danger" style="display: none" role="alert" id="badInput">
+                <div class="alert alert-danger" style="display: none" role="alert" id="badReg">
                 </div>
             </h:form>
         </div>
