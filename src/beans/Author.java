@@ -26,7 +26,7 @@ public class Author {
     private String firstname;
     private String lastname;
     private Date regdate;
-    private byte[] cover;
+    private int avaterID;
     private String info;
     private int bookCount;
 
@@ -139,12 +139,12 @@ public class Author {
         this.regdate = regdate;
     }
 
-    public byte[] getCover() {
-        return cover;
+    public int getAvaterID() {
+        return avaterID;
     }
 
-    public void setCover(byte[] cover) {
-        this.cover = cover;
+    public void setAvaterID(int avaterID) {
+        this.avaterID = avaterID;
     }
 
     public String getInfo() {

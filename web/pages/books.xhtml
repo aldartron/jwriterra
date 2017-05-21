@@ -62,7 +62,7 @@
                         <div class="col-md-4 col-sm-6 bookboard bookpanel">
                             <div class="bookcard">
                                 <h:link outcome="book">
-                                    <img src="#{resource['images/cover1.jpg']}" alt="alttitle"/>
+                                    <h:graphicImage value="/ShowImage?id=#{b.coverID == 0 ? 9 : b.coverID}" />
                                     <h4>
                                         #{b.getTitle()}
                                     </h4>

@@ -83,6 +83,7 @@ public class ProfileListController {
                     p.setRegdate(rs.getDate("RegDate"));
                     p.setId(rs.getInt("ID_Author"));
                     p.setBookCount(rs.getInt("Count"));
+                    p.setAvatarID(rs.getInt("ID_Avatar"));
                     profileList.add(p);
                 }
             } catch (Exception ex) {ex.printStackTrace();}

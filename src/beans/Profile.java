@@ -25,9 +25,9 @@ public class Profile implements Serializable{
     private String surename;
     private String info;
     private Date regdate;
-    private byte[] avatar;
     private int bookCount;
     private String favGenre;
+    private int avatarID;
 
     private ArrayList<Book> bookList;
 
@@ -58,9 +58,8 @@ public class Profile implements Serializable{
                     this.login = rs.getString("Login");
                     this.info = rs.getString("Info");
                     this.regdate = rs.getDate("RegDate");
-                    this.avatar = null; //
+                    this.avatarID = rs.getInt("ID_Avatar");
                     this.bookCount = rs.getInt("Count");
-                    // TODO: manage avatars
                 }
             }
         } catch (Exception ex) {
@@ -122,13 +121,6 @@ public class Profile implements Serializable{
         this.regdate = regdate;
     }
 
-    public byte[] getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }
 
     public ArrayList<Book> getBookList() {
         return bookList;
@@ -171,5 +163,13 @@ public class Profile implements Serializable{
 
     public void setFavGenre(String favGenre) {
         this.favGenre = favGenre;
+    }
+
+    public int getAvatarID() {
+        return avatarID;
+    }
+
+    public void setAvatarID(int avatarID) {
+        this.avatarID = avatarID;
     }
 }

@@ -53,6 +53,7 @@ public class BookListController {
                     book.setTitle(rs.getString("Title"));
                     book.setPubDate(rs.getDate("PubDate"));
                     book.setEditDate(rs.getDate("EditDate"));
+                    book.setCoverID(rs.getInt("ID_Cover"));
                     bookList.add(book);
                 }
             } catch (Exception ex) {ex.printStackTrace();}
@@ -64,7 +65,7 @@ public class BookListController {
     public ArrayList<Book> getBooksByProfile(Profile profile) {
         currentProfile = profile;
         String sql =
-                "SELECT b.ID_Book, g.Name, a.FirstName, a.LastName, b.Title, b.PubDate, b.EditDate " +
+                "SELECT * " +
                 "FROM books b " +
                 "LEFT JOIN genres g ON b.ID_Genre = g.ID_Genre " +
                 "LEFT JOIN authors a ON b.ID_Author = a.ID_Author " +
@@ -104,9 +105,11 @@ public class BookListController {
                 "SELECT * FROM books b " +
                 "LEFT JOIN genres g ON b.ID_Genre = g.ID_Genre " +
                 "LEFT JOIN authors a ON b.ID_Author = a.ID_Author " +
-                 "WHERE LOWER(Title) LIKE \"%" + searchString.toLowerCase() + "%\" OR " +
-                 "LOWER(CONCAT(Title, \" \", Name)) LIKE \"%" + searchString.toLowerCase() + "%\" OR " +
-                 "LOWER(CONCAT(Name, \" \", Title)) LIKE \"%" + searchString.toLowerCase() + "%\"\n";
+                "WHERE LOWER(Title) LIKE \"%" + searchString.toLowerCase() + "%\" OR " +
+                "LOWER(CONCAT(Title, \" \", Name)) LIKE \"%" + searchString.toLowerCase() + "%\" OR " +
+                "LOWER(CONCAT(Name, \" \", Title)) LIKE \"%" + searchString.toLowerCase() + "%\" OR " +
+                "LOWER(Name) LIKE \"%" + searchString.toLowerCase() + "%\" OR " +
+                "LOWER(Login) LIKE \"%" + searchString.toLowerCase() + "%\"";
 
         fillBooksBySQL(sql);
 
@@ -114,6 +117,12 @@ public class BookListController {
         FacesMessage message = new FacesMessage("Результаты поиска \"" + searchString +"\"" );
         context.addMessage("search_form", message);
 
+        return "books";
+    }
+
+    public String fillBooksBySearch(String str) throws IOException {
+        searchString = str;
+        fillBooksBySearch();
         return "books";
     }
 

@@ -65,9 +65,12 @@
                                                 <f:param name="id" value="#{request.remoteUser}" />
                                             </h:link>
                                         </li>
-                                        <li><a href="#">Мои книги</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">Настроить</a></li>
+                                        <li>
+                                            <h:link outcome="editprofile">
+                                                Настройки
+                                                <f:param name="id" value="#{request.remoteUser}" />
+                                            </h:link>
+                                        </li>
                                         <li role="separator" class="divider"> </li>
                                         <li>
                                             <h:commandLink action="#{loginController.exit()}">Выйти</h:commandLink>

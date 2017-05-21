@@ -22,11 +22,11 @@ public class Book {
     private int id;
     private String genre;
     private String author;
+    private String authorLogin;
     private String title;
-    private byte[] cover;
+    private int coverID;
     private Date pubDate;
     private Date editDate;
-    private int chapterCount;
 
     public Book() {}
 
@@ -42,7 +42,7 @@ public class Book {
                                     "FROM books " +
                                     "LEFT JOIN chapters ON books.ID_Book = chapters.ID_Book " +
                                     "LEFT JOIN authors ON books.ID_Author = authors.ID_Author " +
-                                    "LEFT JOIN images ON books.ID_Cover = images.ID_Image " +
+                                    "LEFT JOIN genres ON books.ID_Genre = genres.ID_Genre " +
                                     "WHERE books.ID_Book = \"" + id + "\"")
             )
             {
@@ -50,10 +50,10 @@ public class Book {
                     this.title = rs.getString("Title");
                     this.pubDate = rs.getDate("PubDate");
                     this.editDate = rs.getDate("EditDate");
-                    this.chapterCount = rs.getInt("Count");
+                    this.authorLogin = rs.getString("Login");
                     this.author = rs.getString("FirstName") + " " + rs.getString("LastName");
-                    this.cover = rs.getBytes("Image");
-                    // TODO: manage avatars
+                    this.coverID = rs.getInt("ID_Cover");
+                    this.genre = rs.getString("Name");
                 }
             }
         } catch (Exception ex) {
@@ -93,12 +93,12 @@ public class Book {
         this.title = title;
     }
 
-    public byte[] getCover() {
-        return cover;
+    public int getCoverID() {
+        return coverID;
     }
 
-    public void setCover(byte[] cover) {
-        this.cover = cover;
+    public void setCoverID(int coverID) {
+        this.coverID = coverID;
     }
 
     public String getPubDate() {
@@ -123,12 +123,11 @@ public class Book {
         this.editDate = editDate;
     }
 
-    public int getChapterCount() {
-        return chapterCount;
+    public String getAuthorLogin() {
+        return authorLogin;
     }
 
-    public void setChapterCount(int chapterCount) {
-        this.chapterCount = chapterCount;
+    public void setAuthorLogin(String authorLogin) {
+        this.authorLogin = authorLogin;
     }
-
 }

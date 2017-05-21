@@ -45,7 +45,7 @@
                         <div class="col-md-6 col-sm-6 authorboard">
                             <div class="panel panel-default authorcard">
                                 <h:link outcome="profile">
-                                    <img src="#{resource['images/av.jpg']}" alt="avatar"/>
+                                    <h:graphicImage value="/ShowImage?id=#{p.avatarID == 0 ? 5 : p.avatarID}"/>
                                     <f:param name="id" value="#{p.login}"/>
                                 </h:link>
                                 <div>

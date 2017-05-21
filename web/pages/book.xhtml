@@ -32,9 +32,12 @@
             <div class="col-lg-2 col-md-3 sidebar">
                 <div class="col-md-12 panel panel-default">
                     <h4>#{bookReader.currentBook.title}</h4>
-                    <hr/>
-                    <p><strong>#{bookReader.currentBook.author}</strong></p>
                     <p><em>#{bookReader.currentBook.genre}</em></p>
+                    <hr/>
+                    <h:link outcome="profile">
+                        <f:param name="id" value="#{bookReader.currentBook.authorLogin}"/>
+                        <p><strong>#{bookReader.currentBook.author}</strong></p>
+                    </h:link>
                     <p>Опубликовано:<br/>#{bookReader.currentBook.pubDate}</p>
                     <p>Обновление:<br/>#{bookReader.currentBook.editDate}</p>
                 </div>
@@ -57,6 +60,9 @@
                     <hr/>
                     <h:outputText value="#{bookReader.currentChapter.content}" escape="false"/>
                 </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{empty bookReader.currentChapterList}">
+                    <h4>Автор еще ничего не добавил в книгу</h4>
                 </ui:fragment>
             </div>
 

@@ -197,6 +197,16 @@ div.authorcard img {
   box-shadow: 3px 2px 7px #555;
 }
 
+div.bookcard a img {
+  height: 260px;
+  width: 220px;
+}
+
+img.ava {
+  height: 64px;
+  width: 64px;
+}
+
 div.authorcard div {
     margin-left: 165px;
     padding-right: 12px;

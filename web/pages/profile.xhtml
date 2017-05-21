@@ -28,7 +28,7 @@
         <div class="main">
             <div class="row">
                 <div class="col-md-3 col-md-offset-2 avatar">
-                    <img src="#{resource['images/av.jpg']}" alt=""/>
+                    <h:graphicImage value="/ShowImage?id=#{profile.avatarID == 0 ? 5 : profile.avatarID}"/>
                 </div>
                 <div class="col-md-5">
                     <div class="page-header">
@@ -69,15 +69,15 @@
                         <div class="col-md-3 col-sm-6 bookboard">
                             <div class="bookcard">
                                 <h:link outcome="book">
-                                    <img src="#{resource['images/cover1.jpg']}" alt="alttitle"/>
+                                    <h:graphicImage value="/ShowImage?id=#{b.coverID == 0 ? 9 : b.coverID}" />
                                     <h4>
-                                        #{b.getTitle()}
+                                        #{b.title}
                                     </h4>
                                     <f:param name="id" value="#{b.id}"/>
                                 </h:link>
                                 <!--<hr/>-->
                                 <!--<p>#{profile.getName()} #{profile.getSurename()}</p>-->
-                                <small><em>#{b.getGenre()}</em></small>
+                                <small><em>#{b.genre}</em></small>
                             </div>
 
                         </div>

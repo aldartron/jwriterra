@@ -24,8 +24,10 @@
 
             <div class="jumbotron banner">
                 <h1>Начни новую историю</h1>
-                <p  >Современная онлайн-платформа для писателей <strong>Writerra</strong> </p>
-                <p><h:link outcome="login" styleClass="btn btn-primary btn-lg" role="button" value="Присоединиться"/></p>
+                <p>Современная онлайн-платформа для писателей <strong>Writerra</strong> </p>
+                <ui:fragment rendered="#{empty request.remoteUser}">
+                    <p><h:link outcome="login" styleClass="btn btn-primary btn-lg" role="button" value="Присоединиться"/></p>
+                </ui:fragment>
             </div>
 
             <div class="cardboard">

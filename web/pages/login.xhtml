@@ -27,7 +27,7 @@
             <div class="page-header">
                 <h2>Войдите под своей учетной записью</h2>
             </div>
-            <h:form role="form" id="login_form">
+            <h:form role="form" id="login_form" onsubmit="return checkLog(this)">
                 <div class="form-group">
                     <label for="login">Логин</label>
                     <h:inputText a:placeholder="Введите имя пользователя..." id="login" name="login" styleClass="form-control" value="#{author.login}" required="true" requiredMessage="Поле не может быть пустым" />
@@ -37,7 +37,7 @@
                     <h:inputSecret a:placeholder="Введите пароль..." id="pass" name="pass" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым" />
                 </div>
                 <div class="btn-panel">
-                    <h:commandButton action="#{author.login}" value="Вход" styleClass="btn btn-success" type="submit"/>
+                    <h:commandButton action="#{author.login}" value="Вход" styleClass="btn btn-success" type="submit" />
                 </div>
                 <div>
                     <h:message id="loginError" for="login_form" styleClass="error"/>
