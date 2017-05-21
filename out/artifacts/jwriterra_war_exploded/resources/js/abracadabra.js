@@ -2,15 +2,16 @@ var logRegex = /\W/i;
 var numberIsFirst = /^\d/
 var nameRegex = /[^а-я]+/i;
 
-function checkReg(form) {
+function checkReg() {
 
-  var name = form.elements.regname.value;
-  var surename = form.elements.regsurename.value;
-  var login = form.elements.reglog.value;
-  var pwd = form.elements.regpwd.value;
-  var info = form.elements.reginfo.value;
+  var name = document.getElementById("reg_form:regname").value;
+  var surename = document.getElementById("reg_form:regsurename").value;
+  var login = document.getElementById("reg_form:reglog").value;
+  var pwd = document.getElementById("reg_form:pwd").value;
+  var info = document.getElementById("reg_form:reginfo").value;
 
   var messages = new Array();
+  var resMessage;
 
   if (login.length < 6 || login.length > 20) messages.push("Логин может быть от 6 до 20 символов длиною")
   if (pwd.length < 6 || pwd.length > 20) messages.push("Пароль может быть от 6 до 20 символов длиною")
@@ -22,12 +23,12 @@ function checkReg(form) {
   if (nameRegex.test(name)) messages.push("Имя должно состоять из кириллических символов");
   if (nameRegex.test(surename)) messages.push("Фамилия должна состоять из кириллических символов")
 
-  badInfo = document.getElementById('badInput');
+  var badInfo = document.getElementById('badReg');
 
   if (messages.length != 0) {
 
     resMessage = "<ul>";
-    for (message in messages) {
+    for (var message in messages) {
       resMessage += "<li>" + messages[message] + "</li>"
     }
     resMessage += "</ul>"
@@ -42,35 +43,34 @@ function checkReg(form) {
   return true;
 }
 
-function checkLog(form) {
+function checkLog() {
 
-  var login = form.elements.login.value;
-  var pass = form.elements.pass.value;
+    var login = document.getElementById("login_form:login").value;
+    var pass = document.getElementById("login_form:pass").value;
+    var messages = new Array();
+    var resMessage;
+    var badInfo = document.getElementById('badLogin');
 
-  badInfo = document.getElementById('badLogin');
-  var messages = new Array();
+    if (login.length < 6 || login.length > 20) messages.push("Логин может быть от 6 до 20 символов длиною")
+    if (pass.length < 6 || pass.length > 20) messages.push("Пароль может быть от 6 до 20 символов длиною")
+    if (logRegex.test(login)) messages.push("Логин может состоять из латинских букв, цифр и _")
+    if (logRegex.test(pass)) messages.push("Пароль может состоять из латинских букв, цифр и _")
 
-  if (login.length < 6 || login.length > 20) messages.push("Логин может быть от 6 до 20 символов длиною")
-  if (pass.length < 6 || pass.length > 20) messages.push("Пароль может быть от 6 до 20 символов длиною")
-  if (logRegex.test(login)) messages.push("Логин может состоять из латинских букв, цифр и _")
-  if (logRegex.test(pass)) messages.push("Пароль может состоять из латинских букв, цифр и _")
 
-  if (messages.length != 0) {
+    if (messages.length != 0) {
 
-    resMessage = "<ul>";
-    for (message in messages) {
-      resMessage += "<li>" + messages[message] + "</li>"
+      resMessage = "<ul>";
+      for (var message in messages) {
+        resMessage += "<li>" + messages[message] + "</li>"
+      }
+      resMessage += "</ul>";
+
+      badInfo.innerHTML = resMessage;
+      badInfo.style.display = "block";
+
+      return false;
     }
-    resMessage += "</ul>"
 
-    badInfo.innerHTML = resMessage;
-    badInfo.style.display = "block"
-
-    return false;
-  }
-
-  badInfo.style.display = "none"
-  form.submit()
-  return true;
-
+    badInfo.style.display = "none";
+    return true;
 }
