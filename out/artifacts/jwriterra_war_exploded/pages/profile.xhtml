@@ -26,26 +26,49 @@
         </ui:insert>
 
         <div class="main">
+            <h:form>
             <div class="row">
                 <div class="col-md-3 col-md-offset-2 avatar">
                     <h:graphicImage value="/ShowImage?id=#{profile.avatarID == 0 ? 5 : profile.avatarID}"/>
                 </div>
                 <div class="col-md-5">
                     <div class="page-header">
+
+                        <ui:fragment rendered="#{profileEditController.isEdit}">
+                            <h1><h:inputText value="#{profile.name}"/> <h:inputText value="#{profile.surename}"/><br/>
+                                <small> #{profile.login} </small>
+                            </h1>
+                            <h:commandLink action="#{profileEditController.saveEdit(profile)}" value="Сохранить изменения"/> |
+                            <h:commandLink action="#{profileEditController.cancelEdit()}" value="Отмена"/>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{not profileEditController.isEdit}">
                         <h1>#{profile.name} #{profile.surename}<br/>
                             <small> #{profile.login} </small>
                         </h1>
+                        <h:commandLink rendered="#{request.remoteUser.toString().equals(profile.login)}" action="#{profileEditController.startEdit()}" value="Редактировать профиль"/>
+                        </ui:fragment>
                     </div>
                     <div class="col-md-8">
                         <p>
+                            <ui:fragment rendered="#{profileEditController.isEdit}">
                             <em>
-                                #{profile.info}
+                                <h:inputTextarea cols="64" rows="4" value="#{profile.info}" />
                             </em>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{not profileEditController.isEdit}">
+                                <em>
+                                    #{profile.info}
+                                </em>
+                            </ui:fragment>
                         </p>
                     </div>
                 </div>
             </div>
+            </h:form>
             <hr/>
+            <h:form>
             <div class="row board">
                 <div class="col-md-3 col-md-offset-2">
                     <h4>Заргестрирован: <strong>#{profile.regdate}</strong></h4>
@@ -53,16 +76,18 @@
                 <div class="col-md-2">
                     <h4>Опубликовано книг: <strong>#{profile.bookCount}</strong> </h4>
                 </div>
+
+                <ui:fragment rendered="#{request.remoteUser.toString().equals(profile.login)}">
                 <div class="col-md-3">
-                    <h4>Объмом: <strong>152541</strong> символов </h4>
+                    <h4><h:commandLink action="#{bookEditController.newBook()}"> Добавить новую книгу </h:commandLink></h4>
                 </div>
+                </ui:fragment>
             </div>
+            </h:form>
             <hr/>
             <div class="row">
                 <h3>Книги автора:</h3>
                 <div class="col-md-10 col-md-offset-1">
-
-                    <!--TODO: manage the book links-->
 
                     <ui:repeat value="#{bookListController.getBooksByProfile(profile)}" var="b">
 

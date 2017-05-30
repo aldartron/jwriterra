@@ -25,12 +25,11 @@ public class BookReader {
     private int chapterId; // ID of current chapter
 
     public void initBook() {
-        if (currentBook == null || currentBook.getId() != bookId) {
-            currentBook = new Book();
-            currentBook.setId(bookId);
-            currentBook.fillBook();
-            fillChapterList();
-        }
+        currentBook = new Book();
+        currentBook.setId(bookId);
+        currentBook.fillBook();
+        fillChapterList();
+
         if (!currentChapterList.isEmpty()) {
             currentChapter = getChapterByID(chapterId);
         } else currentChapter = null;

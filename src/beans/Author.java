@@ -4,6 +4,7 @@ import db.Database;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class Author {
 
     public Author() {}
@@ -30,7 +31,7 @@ public class Author {
     private String info;
     private int bookCount;
 
-    public void add() {
+    public boolean add() {
 
         Connection conn = Database.getConnection();
         PreparedStatement ps = null;
@@ -50,7 +51,6 @@ public class Author {
 
         if (conn != null) {
             try {
-
                 String sql = "INSERT INTO authors(Login, Keyword, FirstName, LastName, Info, RegDate) VALUES (?, ?, ?, ?, ?, NOW())";
                 ps = conn.prepareStatement(sql);
                 ps.setString(1, login);
@@ -63,6 +63,7 @@ public class Author {
 
             } catch (Exception ex) {
                 ex.printStackTrace();
+                return false; // Добавление пользователя неудачно
             } finally {
                 try {
                     conn.close();
@@ -72,23 +73,22 @@ public class Author {
                 }
             }
         }
-
+        return true;
     }
 
     public String login() {
         try {
-
             ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).login(login, keyword);
             return "index";
-
-        } catch (ServletException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Author.class.getName()).log(Level.SEVERE, null, ex);
             FacesContext context = FacesContext.getCurrentInstance();
-            FacesMessage message = new FacesMessage("FUCK" + login + " " + keyword);
+            FacesMessage message = new FacesMessage("Неверный логин и/или пароль!");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             context.addMessage("login_form", message);
         }
-        return "login";
+        return null;
+
     }
 
     public long getId() {

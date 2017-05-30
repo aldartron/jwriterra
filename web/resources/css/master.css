@@ -260,3 +260,11 @@ div.reader-list {
   color: red;
 }
 
+.error {
+  color: red;
+}
+
+textarea {
+  width: 100%;
+}
+

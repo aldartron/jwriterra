@@ -37,14 +37,15 @@
                     <h:inputSecret a:placeholder="Введите пароль..." maxlength="20" id="pass" name="pass" styleClass="form-control" value="#{author.keyword}" required="true" requiredMessage="Поле не может быть пустым" />
                 </div>
                 <div class="btn-panel">
-                    <h:commandButton action="#{author.login}" value="Вход" styleClass="btn btn-success" type="submit" />
+                    <h:commandButton action="#{loginController.login(author)}" value="Вход" styleClass="btn btn-success" type="submit" />
                 </div>
                 <div class="alert alert-danger" style="display: none" role="alert" id="badLogin">
                 </div>
                 <div>
-                    <h:message id="loginError" for="login_form" styleClass="error"/>
+                    <h:message for="login_form" styleClass="error"/>
                 </div>
             </h:form>
+
 
         </div>
         <div class="col-md-4 col-md-offset-1">
@@ -54,9 +55,11 @@
             <!-- ЛОГИН -->
             <h:form class="form-horizontal" id="reg_form" onsubmit="return checkReg()">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="reglog">Логин:</label>
+                    <label class="control-label col-sm-2">Логин:</label>
                     <div class="col-sm-8">
-                        <h:inputText a:placeholder="Придумайте имя пользователя" maxlength="20" id="reglog" name="reglog" styleClass="form-control" value="#{author.login}" />
+                        <h:inputText a:placeholder="Придумайте имя пользователя" maxlength="20" id="reglog" name="reglog" styleClass="form-control" value="#{author.login}">
+                            <f:validator validatorId="RegValidator"/>
+                        </h:inputText>
                     </div>
                     <div class="col-sm-2 req"> * </div>
                 </div>
@@ -98,6 +101,9 @@
                     </div>
                 </div>
                 <div class="alert alert-danger" style="display: none" role="alert" id="badReg">
+                </div>
+                <div>
+                    <h:message for="reglog" styleClass="error"/>
                 </div>
             </h:form>
         </div>

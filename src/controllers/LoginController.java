@@ -17,15 +17,19 @@ public class LoginController {
 
 
     public String register(Author author) {
+        if (author.add()) {
+            author.login();
+            return "index";
+        }
+        return null;
+    }
 
-        author.add();
+    public String login(Author author) {
         author.login();
-
-        return "main";
+        return "profile?faces-redirect=true&includeViewParams=true&id=" + author.getLogin();
     }
 
     public String exit() {
-
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
@@ -36,8 +40,6 @@ public class LoginController {
         }
 
         request.getSession().invalidate();
-
         return "index";
     }
-
 }

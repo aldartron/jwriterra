@@ -4,6 +4,7 @@ import db.Database;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -12,7 +13,7 @@ import java.sql.Statement;
  * Created by Aldartron on 11.05.2017.
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class Chapter {
     private int id;
     private int bookId;
@@ -48,6 +49,32 @@ public class Chapter {
         }
     }
 
+    public void updateInfo() {
+        String sql = "UPDATE chapters SET " +
+                "Title = \'" + this.title + "\'" +
+                ", number = '" + this.number + "\'" +
+                ", content = '" + this.content + "\'" +
+                "WHERE ID_Chapter = " + id;
+
+        try(
+                Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement();
+        ) {
+            stmt.executeUpdate(sql);
+            stmt.executeUpdate("UPDATE books SET EditDate = NOW() WHERE ID_Book = " + this.bookId );
+        } catch (Exception ex) { ex.printStackTrace(); }
+            }
+
+    public void delete() {
+        String sql = "DELETE FROM chapters WHERE ID_Chapter = " + this.id;
+        try(
+                Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement();
+        ) {
+            stmt.executeUpdate(sql);
+        } catch (Exception ex) { ex.printStackTrace(); }
+    }
+
     public int getId() {
         return id;
     }
@@ -73,7 +100,9 @@ public class Chapter {
     }
 
     public String getContent() {
-        String result = "<p>" + content + "</p>";
+        String result = "";
+        if (this.content != null && !this.content.equals(""))
+            result = "<p>" + content + "</p>";
         return result.replaceAll("\n", "<p></p>");
     }
 

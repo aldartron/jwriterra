@@ -31,15 +31,15 @@ function checkReg() {
     for (var message in messages) {
       resMessage += "<li>" + messages[message] + "</li>"
     }
-    resMessage += "</ul>"
+    resMessage += "</ul>";
 
     badInfo.innerHTML = resMessage;
-    badInfo.style.display = "block"
+    badInfo.style.display = "block";
 
     return false;
   }
 
-  badInfo.style.display = "none"
+  badInfo.style.display = "none";
   return true;
 }
 

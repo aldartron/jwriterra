@@ -68,6 +68,21 @@ public class Profile implements Serializable{
 
     }
 
+    public void updateInfo() {
+        String sql = "UPDATE authors SET " +
+                "FirstName = \'" + this.name + "\'" +
+                ", LastName = \'" + this.surename + "\'" +
+                ", Info = \'" + this.info + "\'" +
+                " WHERE Login = \'" + this.login + "\'";
+
+        try(
+                Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement();
+        ) {
+            stmt.executeUpdate(sql);
+        } catch (Exception ex) { ex.printStackTrace(); }
+    }
+
     public int getBookCount() {
         return bookCount;
     }

@@ -11,6 +11,8 @@
     <f:viewParam name="id" value="#{bookReader.bookId}" required="true" />
     <f:viewParam name="chapter" value="#{bookReader.chapterId}" />
     <f:viewAction action="#{bookReader.initBook()}" />
+    <f:viewAction action="#{bookEditController.initEdit(book, bookReader.currentBook)}"/>
+    <f:viewAction action="#{chapterEditController.initEdit(chapter, bookReader.currentChapter)}"/>
 </f:metadata>
 
 <h:head>
@@ -30,10 +32,36 @@
 
        <div class="main row">
             <div class="col-lg-2 col-md-3 sidebar">
+                <h:form>
                 <div class="col-md-12 panel panel-default">
-                    <h4>#{bookReader.currentBook.title}</h4>
-                    <p><em>#{bookReader.currentBook.genre}</em></p>
+
+                    <ui:fragment rendered="#{not bookEditController.isEdit}">
+                        <h4>#{bookReader.currentBook.title}</h4>
+                        <p><em>#{bookReader.currentBook.genre}</em></p>
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{bookEditController.isEdit}">
+                        <h4><h:inputTextarea cols="18" rows="3" value="#{book.title}" a:placeholder="#{bookReader.currentBook.title}" /></h4>
+                        <p><em>
+                            <h:selectOneMenu value="#{book.genre}">
+                                <f:selectItems value="#{genreController.genreList}" var="g" itemLabel="#{g.name}" itemValue="#{g.name}" />
+                            </h:selectOneMenu>
+                        </em></p>
+                    </ui:fragment>
+
                     <hr/>
+                        <ui:fragment rendered="#{not bookEditController.isEdit and request.remoteUser.toString().equals(bookReader.currentBook.authorLogin)}">
+                            <h:commandLink action="#{bookEditController.startEdit()}" value="Редактировать "/>
+                            <h:commandLink action="#{bookEditController.deleteBook(book)}" value="Удалить" />
+                            <hr/>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{bookEditController.isEdit and request.remoteUser.toString().equals(bookReader.currentBook.authorLogin)}">
+                            <h:commandLink action="#{bookEditController.saveEdit(book)}" value="Сохранить "/>
+                            <h:commandLink action="#{bookEditController.cancelEdit()}" value=" Отмена" />
+                            <hr/>
+                        </ui:fragment>
+
                     <h:link outcome="profile">
                         <f:param name="id" value="#{bookReader.currentBook.authorLogin}"/>
                         <p><strong>#{bookReader.currentBook.author}</strong></p>
@@ -41,6 +69,8 @@
                     <p>Опубликовано:<br/>#{bookReader.currentBook.pubDate}</p>
                     <p>Обновление:<br/>#{bookReader.currentBook.editDate}</p>
                 </div>
+                </h:form>
+                <h:form>
                 <div class="col-md-12 chapterslist list-group">
                     <ui:repeat value="#{bookReader.currentChapterList}" var="ch">
 
@@ -51,22 +81,45 @@
                         </h:link>
 
                     </ui:repeat>
+                    <h:commandLink rendered="#{request.remoteUser.toString().equals(bookReader.currentBook.authorLogin)}" styleClass="list-group-item list-group-item-info text-center" action="#{chapterEditController.newChapter(bookReader.currentBook.id)}">
+                         Добавить главу
+                    </h:commandLink>
                 </div>
+                </h:form>
             </div>
             <div class="col-lg-9 col-md-9 reader">
-                <ui:fragment rendered="#{bookReader.currentChapter != null}">
-                <div class="reader-list">
-                    <h2>#{bookReader.currentChapter.number}. #{bookReader.currentChapter.title}</h2>
-                    <hr/>
-                    <h:outputText value="#{bookReader.currentChapter.content}" escape="false"/>
-                </div>
+                <ui:fragment rendered="#{bookReader.currentChapter != null and not chapterEditController.isEdit}">
+                    <h:form>
+                    <div class="reader-list">
+                        <h2>#{bookReader.currentChapter.number}. #{bookReader.currentChapter.title}</h2>
+                        <ui:fragment rendered="#{request.remoteUser.toString().equals(bookReader.currentBook.authorLogin)}">
+                            <h:commandLink action="#{chapterEditController.startEdit()}" value="Редактировать"/> |
+                            <h:commandLink action="#{chapterEditController.deleteChapter(bookReader.currentChapter)}" value="Удалить" />
+                        </ui:fragment>
+                        <hr/>
+                        <h:outputText value="#{bookReader.currentChapter.content}" escape="false"/>
+                    </div>
+                    </h:form>
                 </ui:fragment>
-                <ui:fragment rendered="#{empty bookReader.currentChapterList}">
+                <ui:fragment rendered="#{bookReader.currentChapter != null and chapterEditController.isEdit}">
+                    <h:form>
+                    <div class="reader-list">
+                        <h2>
+                            <h:inputText size="1" type="number" value="#{chapter.number}" converterMessage="Введите число..." />.
+                            <h:inputText size="24" value="#{chapter.title}" a:placeholder="Заголовок" />
+                        </h2>
+                        <h:commandLink action="#{chapterEditController.saveEdit(chapter)}" value="Сохранить"/> |
+                        <h:commandLink action="#{chapterEditController.cancelEdit()}" value="Отмена" />
+                        <hr/>
+                        <h:inputTextarea value="#{chapter.content}" />
+                    </div>
+                    </h:form>
+                </ui:fragment>
+
+                <ui:fragment rendered="#{empty bookReader.currentChapterList and not chapterEditController.isEdit}">
                     <h4>Автор еще ничего не добавил в книгу</h4>
                 </ui:fragment>
             </div>
-
-
         </div>
 
         <ui:insert name="footer">
