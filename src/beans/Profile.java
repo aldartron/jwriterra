@@ -5,6 +5,7 @@ import db.Database;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -15,11 +16,10 @@ import java.util.ArrayList;
  */
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class Profile implements Serializable{
 
     private int id;
-    @ManagedProperty(value = "#{param.id}")
     private String login;
     private String name;
     private String surename;

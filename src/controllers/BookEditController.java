@@ -69,7 +69,7 @@ public class BookEditController {
         } catch (Exception ex) {ex.printStackTrace();}
 
         isEdit = true;
-        return "book?faces-redirect=true&id=" + lastId;
+        return "book?faces-redirect=true&includeViewParams=true&id=" + lastId;
     }
 
     public boolean getIsEdit() { return isEdit; }
